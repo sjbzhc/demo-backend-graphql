@@ -1,4 +1,4 @@
-package com.demobackend.demo.resolvers;
+package com.demobackend.demo.resolvers.user;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.demobackend.demo.models.User;
