@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  http2:
+   enabled: true
+
+spring:
+ data:
+  mongodb:
+   database: posts
+   host: localhost
+   port: 27017
+ servlet:
+  multipart:
+   max-file-size: 2MB
+
+
+graphql:
+ servlet:
+  mapping: /graphql
+  enabled: true
+  corsEnabled: true
+  maxQueryDepth: 100
+  exception-handlers-enabled: true
+  tracingEnabled: false
+# playground:
+#  headers:
+#   Authorization: Bearer TOKEN
+#   user_id: IDP|Philip
+#   user_roles: get:bank_account
+#  tabs:
+#   - name: Bank account sample query
+#     query: classpath:playground/bank_account.graphql
+#     variables: classpath:playground/bank_account_variables.json
+voyager:
+ enabled: true

@@ -1,0 +1,20 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    allConsults: [Consult!]!
+    allUsers: [User]!
+    consultByUserId(id: String!): [Consult]
+
+    allCourses: [Course!]!
+}
+
+type Mutation {
+    createUser(user: UserInput!): User
+    createConsult(userId: String!, content: String!): Consult
+
+    createCourse(name: String, creatorId: String): Course
+    addParticipantToCourse(courseId: String, participantId: String): Course
+}

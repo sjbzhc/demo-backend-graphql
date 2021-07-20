@@ -1,0 +1,6 @@
+type Course {
+    id: String
+    name: String
+    creator: User
+    participants: [User]
+}

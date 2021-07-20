@@ -1,0 +1,5 @@
+type Consult {
+    id: String
+    content: String
+    user: User
+}
