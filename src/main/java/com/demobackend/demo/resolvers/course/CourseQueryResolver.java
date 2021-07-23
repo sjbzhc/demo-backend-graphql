@@ -1,8 +1,8 @@
 package com.demobackend.demo.resolvers.course;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.demobackend.demo.models.Course;
 import com.demobackend.demo.repository.CourseRepository;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

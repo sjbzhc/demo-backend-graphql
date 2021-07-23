@@ -15,6 +15,8 @@
 	<description>Basic backend with Graphql</description>
 	<properties>
 		<java.version>11</java.version>
+		<graphql.version>11.0.0</graphql.version>
+		<graphql.extended.scalars.version>15.0.0</graphql.extended.scalars.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -42,7 +44,7 @@
 		<dependency>
 			<groupId>com.graphql-java-kickstart</groupId>
 			<artifactId>graphql-spring-boot-starter</artifactId>
-			<version>5.10.0</version>
+			<version>${graphql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.graphql-java-kickstart</groupId>
@@ -52,18 +54,18 @@
 		<dependency>
 			<groupId>com.graphql-java-kickstart</groupId>
 			<artifactId>playground-spring-boot-starter</artifactId>
-			<version>5.10.0</version>
+			<version>${graphql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>voyager-spring-boot-starter</artifactId>
-			<version>5.0.2</version>
+			<version>${graphql.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-java-extended-scalars</artifactId>
-			<version>16.0.0</version>
+			<version>${graphql.extended.scalars.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.graphql-java</groupId>
@@ -76,6 +78,11 @@
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.graphql-java-kickstart</groupId>-->
+<!--			<artifactId>graphql-java-servlet</artifactId>-->
+<!--			<version>11.0.0</version>-->
+<!--		</dependency>-->
 
 	</dependencies>
 

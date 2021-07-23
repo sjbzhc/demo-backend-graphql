@@ -1,9 +1,9 @@
 package com.demobackend.demo.resolvers.user;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.demobackend.demo.models.User;
 import com.demobackend.demo.models.UserInput;
 import com.demobackend.demo.repository.UserRepository;
+import graphql.kickstart.tools.GraphQLMutationResolver;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;

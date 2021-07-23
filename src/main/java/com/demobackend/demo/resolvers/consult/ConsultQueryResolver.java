@@ -1,8 +1,8 @@
 package com.demobackend.demo.resolvers.consult;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.demobackend.demo.models.Consult;
 import com.demobackend.demo.repository.ConsultRepository;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
