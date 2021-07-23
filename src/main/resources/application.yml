@@ -13,6 +13,15 @@ spring:
   multipart:
    max-file-size: 2MB
 
+logging:
+ level:
+  org:
+   springframework:
+    data:
+     mongodb:
+      core:
+       MongoTemplate: DEBUG
+
 
 graphql:
  servlet:
@@ -22,14 +31,13 @@ graphql:
   maxQueryDepth: 100
   exception-handlers-enabled: true
   tracingEnabled: false
-# playground:
-#  headers:
-#   Authorization: Bearer TOKEN
-#   user_id: IDP|Philip
-#   user_roles: get:bank_account
+ playground:
+  headers:
+   Authorization: Bearer TOKEN
+   user_id: SomeUSERID
 #  tabs:
 #   - name: Bank account sample query
 #     query: classpath:playground/bank_account.graphql
 #     variables: classpath:playground/bank_account_variables.json
-voyager:
- enabled: true
+#voyager:
+# enabled: true

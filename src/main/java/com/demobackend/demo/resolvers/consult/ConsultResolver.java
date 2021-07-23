@@ -21,6 +21,6 @@ public class ConsultResolver implements GraphQLResolver<Consult> {
     );
 
     public CompletableFuture<User> getUser(Consult consult) {
-        return CompletableFuture.supplyAsync(() -> userRepository.findById(consult.getUserId()).orElseThrow(null), executorService);
+        return CompletableFuture.supplyAsync(() -> userRepository.findById(consult.getUserId()), executorService);
     }
 }
