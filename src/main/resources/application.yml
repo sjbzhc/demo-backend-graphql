@@ -32,7 +32,7 @@ graphql:
   corsEnabled: true
   maxQueryDepth: 100
   exception-handlers-enabled: true
-  tracingEnabled: true
+  tracingEnabled: false
  playground:
   headers:
    Authorization: Bearer TOKEN

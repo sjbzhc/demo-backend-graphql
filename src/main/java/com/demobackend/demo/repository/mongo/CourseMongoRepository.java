@@ -1,4 +1,4 @@
-package com.demobackend.demo.mongo;
+package com.demobackend.demo.repository.mongo;
 
 import com.demobackend.demo.models.Course;
 import com.demobackend.demo.repository.CourseRepository;

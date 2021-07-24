@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      database: posts
+      host: localhost
+      port: 27017
+  main:
+    web-application-type: none
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: true
+    maxQueryDepth: 100
+    exception-handlers-enabled: true
+    tracingEnabled: false

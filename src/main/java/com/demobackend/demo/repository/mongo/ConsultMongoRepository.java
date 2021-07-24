@@ -1,4 +1,4 @@
-package com.demobackend.demo.mongo;
+package com.demobackend.demo.repository.mongo;
 
 import com.demobackend.demo.models.Consult;
 import com.demobackend.demo.repository.ConsultRepository;
