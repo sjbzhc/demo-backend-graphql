@@ -2,6 +2,7 @@ package com.demobackend.demo.dataloader;
 
 import com.demobackend.demo.models.User;
 import com.demobackend.demo.repository.UserRepository;
+import com.demobackend.demo.util.CorrelationIdPropagationExecutor;
 import lombok.RequiredArgsConstructor;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
@@ -19,8 +20,8 @@ public class DataLoaderRegistryFactory {
     private final UserRepository userRepository;
 
     public static final String USER_DATA_LOADER = "USER_DATA_LOADER";
-    public static final Executor userThreadPool = Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors());
+    public static final Executor userThreadPool = CorrelationIdPropagationExecutor.wrap(Executors.newFixedThreadPool(
+            Runtime.getRuntime().availableProcessors()));
 
     public DataLoaderRegistry create() {
         // We could use the same registry for batching several unrelated queries,

@@ -19,4 +19,11 @@ public class Course {
     String name;
     String creatorId;
     List<String> participantsIds;
+
+    public List<String> getParticipantsIds() {
+        if (participantsIds != null) {
+            return participantsIds;
+        }
+        return List.of();
+    }
 }

@@ -35,6 +35,7 @@ public class CourseResolver implements GraphQLResolver<Course> {
     }
 
     public CompletableFuture<List<User>> getParticipants(Course course) {
-        return CompletableFuture.supplyAsync(() -> new ArrayList<>(userRepository.findAllById(course.getParticipantsIds())), executorService);
+        return CompletableFuture.supplyAsync(
+                () -> new ArrayList<>(userRepository.findAllById(course.getParticipantsIds())), executorService);
     }
 }
