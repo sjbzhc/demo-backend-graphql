@@ -4,3 +4,6 @@ target
 .DS_Store
 mvnw
 mvnw.cmd
+
+# Secrets
+**/application-secrets.yml
