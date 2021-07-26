@@ -12,6 +12,17 @@ spring:
  servlet:
   multipart:
    max-file-size: 2MB
+# security:
+#  oauth2:
+#   client:
+#    registration:
+#     google:
+#      clientId: ${GOOGLE_CLIENT_ID}
+#      clientSecret: ${GOOGLE_CLIENT_SECRET}
+#      redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+#      scope:
+#       - email
+#       - profile
 
 logging:
  pattern:
@@ -47,3 +58,10 @@ graphql:
 #     variables: classpath:playground/bank_account_variables.json
 #voyager:
 # enabled: true
+
+
+#app:
+# tokenSecret: ${GOOGLE_CLIENT_SECRET}
+# tokenExpirationMsec: 3600000
+# authorizedRedirectUris:
+#  - http://localhost:3000/oauth2/redirect
