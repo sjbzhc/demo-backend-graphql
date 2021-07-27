@@ -39,7 +39,7 @@ public class UserMongoRepository implements UserRepository {
 
     @Override
     public Optional<User> findOptionalById(String userId) {
-        return Optional.empty();
+        return Optional.of(findById(userId));
     }
 
     @Override

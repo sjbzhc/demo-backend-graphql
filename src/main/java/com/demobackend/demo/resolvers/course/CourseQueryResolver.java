@@ -17,6 +17,7 @@ import java.util.List;
 public class CourseQueryResolver implements GraphQLQueryResolver {
     private final CourseRepository courseRepository;
 
+//    @PreAuthorize("hasRole('USER')")
     public List<Course> allCourses(DataFetchingEnvironment environment) {
 
         CustomGraphQLContext context = environment.getContext();
