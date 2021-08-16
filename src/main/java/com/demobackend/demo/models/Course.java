@@ -18,6 +18,7 @@ public class Course {
     ObjectId id;
     String name;
     String creatorId;
+    String description;
     List<String> participantsIds;
 
     public List<String> getParticipantsIds() {

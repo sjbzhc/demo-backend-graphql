@@ -1,5 +1,6 @@
 package com.demobackend.demo.security;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,20 +20,20 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private TokenProvider tokenProvider;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private GoogleTokenVerifier googleTokenVerifier;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = getJwtFromRequest(request);
 
-            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                String userId = tokenProvider.getUserIdFromToken(jwt);
+            if (StringUtils.hasText(jwt) && googleTokenVerifier.isValid(jwt)) {
+                GoogleIdToken.Payload user = googleTokenVerifier.verify(jwt);
 
-                UserDetails userDetails = userService.loadUserById(userId);
+                UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

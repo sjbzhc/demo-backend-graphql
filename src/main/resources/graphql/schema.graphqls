@@ -9,6 +9,10 @@ type Query {
     consultByUserId(id: String!): [Consult]
 
     allCourses: [Course!]!
+    myOfferedCourses: [Course!]
+
+    course(courseId: String!): Course
+
 }
 
 type Mutation {

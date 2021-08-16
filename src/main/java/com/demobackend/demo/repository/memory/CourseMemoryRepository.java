@@ -19,7 +19,17 @@ public class CourseMemoryRepository implements CourseRepository {
     }
 
     @Override
+    public Course findById(String courseId) {
+        return null;
+    }
+
+    @Override
     public Course addParticipant(String courseId, String participantId) {
+        return null;
+    }
+
+    @Override
+    public List<Course> findAllByCreatorEmail(String email) {
         return null;
     }
 }

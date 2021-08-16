@@ -1,6 +1,7 @@
 package com.demobackend.demo.repository.mongo;
 
 import com.demobackend.demo.models.Course;
+import com.demobackend.demo.models.User;
 import com.demobackend.demo.repository.CourseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,13 @@ public class CourseMongoRepository implements CourseRepository {
     }
 
     @Override
+    public Course findById(String courseId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(courseId));
+        return mongoOperations.findOne(query, Course.class);
+    }
+
+    @Override
     public Course addParticipant(String courseId, String participantId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(courseId));
@@ -40,6 +48,17 @@ public class CourseMongoRepository implements CourseRepository {
         Update update = new Update();
         update.set("participantsIds", participantIds);
         return mongoOperations.findAndModify(query, update, Course.class);
+    }
+
+    @Override
+    public List<Course> findAllByCreatorEmail(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        User user = mongoOperations.findOne(query, User.class);
+
+        query = new Query();
+        query.addCriteria(Criteria.where("creatorId").is(user.getId()));
+        return mongoOperations.find(query, Course.class);
     }
 
     @Override

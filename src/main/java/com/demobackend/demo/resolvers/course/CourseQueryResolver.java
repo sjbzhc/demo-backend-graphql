@@ -3,6 +3,8 @@ package com.demobackend.demo.resolvers.course;
 import com.demobackend.demo.context.CustomGraphQLContext;
 import com.demobackend.demo.models.Course;
 import com.demobackend.demo.repository.CourseRepository;
+import com.demobackend.demo.security.CurrentUser;
+import com.demobackend.demo.security.UserPrincipal;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +19,38 @@ import java.util.List;
 public class CourseQueryResolver implements GraphQLQueryResolver {
     private final CourseRepository courseRepository;
 
-//    @PreAuthorize("hasRole('USER')")
     public List<Course> allCourses(DataFetchingEnvironment environment) {
 
         CustomGraphQLContext context = environment.getContext();
 
-        String userId = context.getUserId();
+        String userEmail = context.getUserEmail();
 
-        log.info("Requested all courses by {}", userId);
+        log.info("Requested all courses by {}", userEmail);
 
         return courseRepository.findAll();
+    }
+
+    public Course course(String courseId, DataFetchingEnvironment environment) {
+
+        CustomGraphQLContext context = environment.getContext();
+
+        String userEmail = context.getUserEmail();
+
+        log.info("Requested all courses by {}", userEmail);
+
+        System.out.println("courseRepository.findById(courseId)" + courseRepository.findById(courseId));
+
+        return courseRepository.findById(courseId);
+    }
+
+    public List<Course> myOfferedCourses(DataFetchingEnvironment environment) {
+
+        CustomGraphQLContext context = environment.getContext();
+
+        String userEmail = context.getUserEmail();
+
+        log.info("Requested all courses by {}", userEmail);
+
+        return courseRepository.findAllByCreatorEmail(userEmail);
     }
 }

@@ -113,6 +113,13 @@
 			<version>2.3.0</version>
 		</dependency>
 
+		<!--Google Oauth-->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.22.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
