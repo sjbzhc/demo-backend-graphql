@@ -9,6 +9,11 @@ type Query {
     consultByUserId(id: String!): [Consult]
 
     allCourses: [Course!]!
+    myCourses: [Course!]
+    myOfferedCourses: [Course!]
+
+    course(courseId: String!): Course
+
 }
 
 type Mutation {
@@ -16,5 +21,6 @@ type Mutation {
     createConsult(userId: String!, content: String!): Consult
 
     createCourse(name: String, creatorId: String): Course
-    addParticipantToCourse(courseId: String, participantId: String): Course
+    addParticipantToCourse(courseId: String): Course
+    removeParticipantFromCourse(courseId: String): Course
 }

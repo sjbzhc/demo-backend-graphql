@@ -18,7 +18,9 @@ public class Course {
     ObjectId id;
     String name;
     String creatorId;
+    String description;
     List<String> participantsIds;
+    Boolean isEnrolled;
 
     public List<String> getParticipantsIds() {
         if (participantsIds != null) {

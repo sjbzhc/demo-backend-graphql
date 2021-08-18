@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomGraphQLContext implements GraphQLServletContext {
 
-    private final String userId;
+    private final String userEmail;
     private final GraphQLServletContext context;
 
     @Override

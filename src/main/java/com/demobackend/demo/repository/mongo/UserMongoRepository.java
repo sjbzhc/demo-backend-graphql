@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @AllArgsConstructor
@@ -40,6 +38,11 @@ public class UserMongoRepository implements UserRepository {
     }
 
     @Override
+    public Optional<User> findOptionalById(String userId) {
+        return Optional.of(findById(userId));
+    }
+
+    @Override
     public List<User> findAll() {
         Query query = new Query();
         return mongoOperations.find(query, User.class);
@@ -56,5 +59,12 @@ public class UserMongoRepository implements UserRepository {
         users.forEach(user -> map.put(user.getId(), user));
 
         return map;
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        return Optional.of(mongoOperations.findOne(query, User.class));
     }
 }

@@ -3,4 +3,6 @@ type Course {
     name: String
     creator: User
     participants: [User]
+    description: String
+    isEnrolled: Boolean
 }

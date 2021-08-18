@@ -1,5 +1,6 @@
 package com.demobackend.demo.models;
 
+import com.demobackend.demo.login.model.AuthProvider;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,7 @@ public class User {
     String username;
     String name;
     String email;
+    String password;
+    AuthProvider provider;
+    String providerId;
 }
