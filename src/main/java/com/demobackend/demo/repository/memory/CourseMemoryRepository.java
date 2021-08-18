@@ -15,12 +15,12 @@ public class CourseMemoryRepository implements CourseRepository {
 
     @Override
     public List<Course> findAll() {
-        return null;
+        return List.of();
     }
 
     @Override
     public Course findById(String courseId) {
-        return null;
+        return Course.builder().build();
     }
 
     @Override
@@ -30,6 +30,16 @@ public class CourseMemoryRepository implements CourseRepository {
 
     @Override
     public List<Course> findAllByCreatorEmail(String email) {
+        return List.of();
+    }
+
+    @Override
+    public Course removeParticipant(String courseId, String userEmail) {
         return null;
+    }
+
+    @Override
+    public List<Course> findAllByParticipantEmail(String userEmail) {
+        return List.of();
     }
 }

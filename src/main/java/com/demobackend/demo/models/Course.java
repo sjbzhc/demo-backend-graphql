@@ -20,6 +20,7 @@ public class Course {
     String creatorId;
     String description;
     List<String> participantsIds;
+    Boolean isEnrolled;
 
     public List<String> getParticipantsIds() {
         if (participantsIds != null) {

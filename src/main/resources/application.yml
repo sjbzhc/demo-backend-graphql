@@ -27,13 +27,13 @@ spring:
 logging:
  pattern:
   console: -%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %clr(%X{correlation_id}){red} %m%n%wEx
-# level:
-#  org:
-#   springframework:
-#    data:
-#     mongodb:
-#      core:
-#       MongoTemplate: DEBUG
+ level:
+  org:
+   springframework:
+    data:
+     mongodb:
+      core:
+       MongoTemplate: DEBUG
 
 
 graphql:
