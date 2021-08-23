@@ -2,6 +2,7 @@ package com.demobackend.demo.context;
 
 import com.demobackend.demo.dataloader.DataLoaderRegistryFactory;
 import com.demobackend.demo.exceptions.InvalidTokenException;
+import com.demobackend.demo.repository.UserRepository;
 import com.demobackend.demo.security.GoogleTokenVerifier;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import graphql.kickstart.execution.context.GraphQLContext;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.Session;
 import javax.websocket.server.HandshakeRequest;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -25,6 +27,7 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
 
     private final DataLoaderRegistryFactory dataLoaderRegistryFactory;
     private final GoogleTokenVerifier googleTokenVerifier;
+    private final UserRepository userRepository;
 
     @SneakyThrows
     @Override
@@ -40,18 +43,17 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
             throw new InvalidTokenException("The token is not valid");
         }
 
+        List<String> roles = userRepository.getRoles(user.getEmail());
+
         var context = DefaultGraphQLServletContext.createServletContext()
                 .with(httpServletRequest)
                 .with(httpServletResponse)
                 .with(dataLoaderRegistryFactory.create())
                 .build();
 
-        return new CustomGraphQLContext(user.getEmail(), context);
+        return new CustomGraphQLContext(user.getEmail(), roles, context);
     }
 
-    /**
-     * Subscription (Chapter 33)
-     */
     @Override
     public GraphQLContext build(Session session, HandshakeRequest handshakeRequest) {
         throw new IllegalStateException("Unsupported");

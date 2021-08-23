@@ -67,4 +67,11 @@ public class UserMongoRepository implements UserRepository {
         query.addCriteria(Criteria.where("email").is(email));
         return Optional.of(mongoOperations.findOne(query, User.class));
     }
+
+    @Override
+    public List<String> getRoles(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        return mongoOperations.findOne(query, User.class).getRoles();
+    }
 }

@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CustomGraphQLContext implements GraphQLServletContext {
 
     private final String userEmail;
+    private final List<String> roles;
     private final GraphQLServletContext context;
 
     @Override

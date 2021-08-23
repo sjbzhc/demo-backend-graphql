@@ -23,4 +23,6 @@ public interface UserRepository {
     Map<String, User> getCreatorFor(Set<String> userIds);
 
     Optional<User> findByEmail(String email);
+
+    List<String> getRoles(String email);
 }
