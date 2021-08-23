@@ -9,6 +9,7 @@ import graphql.schema.DataFetchingEnvironment;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dataloader.DataLoader;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class CourseResolver implements GraphQLResolver<Course> {
         return dataLoader.load(course.getCreatorId());
     }
 
+    @PreAuthorize("hasAuthority('get:course_participants')")
     public CompletableFuture<List<User>> getParticipants(Course course) {
         return CompletableFuture.supplyAsync(
                 () -> new ArrayList<>(userRepository.findAllById(course.getParticipantsIds())), executorService);

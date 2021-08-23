@@ -6,6 +6,7 @@ import com.demobackend.demo.util.CorrelationIdPropagationExecutor;
 import lombok.RequiredArgsConstructor;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
+import org.springframework.security.concurrent.DelegatingSecurityContextExecutorService;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -20,8 +21,10 @@ public class DataLoaderRegistryFactory {
     private final UserRepository userRepository;
 
     public static final String USER_DATA_LOADER = "USER_DATA_LOADER";
-    public static final Executor userThreadPool = CorrelationIdPropagationExecutor.wrap(Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors()));
+    public static final Executor userThreadPool =
+            CorrelationIdPropagationExecutor.wrap(new DelegatingSecurityContextExecutorService(
+                    Executors.newFixedThreadPool(
+                            Runtime.getRuntime().availableProcessors())));
 
     public DataLoaderRegistry create() {
         // We could use the same registry for batching several unrelated queries,

@@ -9,6 +9,7 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -65,6 +66,7 @@ public class CourseQueryResolver implements GraphQLQueryResolver {
         return courseRepository.findAllByCreatorEmail(userEmail);
     }
 
+    @PreAuthorize("hasAuthority('student')")
     public List<Course> myCourses(DataFetchingEnvironment environment) {
 
         CustomGraphQLContext context = environment.getContext();

@@ -5,9 +5,14 @@ import com.demobackend.demo.models.User;
 import com.demobackend.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,6 +29,11 @@ public class UserServiceImpl implements UserService {
                 );
 
         return UserPrincipal.create(user);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(String email) {
+        return userRepository.getRoles(email).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     public UserDetails loadUserById(String id) {
