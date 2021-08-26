@@ -11,9 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -41,16 +39,12 @@ public class CourseMongoRepository implements CourseRepository {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(courseId));
 
-        Course currentCourse = mongoOperations.findOne(query, Course.class);
-        List<String> participantIds = new ArrayList<>();
-        if (currentCourse.getParticipantsIds() != null) {
-            participantIds = new ArrayList<>(currentCourse.getParticipantsIds());
-        }
-        participantIds.add(user.getId());
-
         Update update = new Update();
-        update.set("participantsIds", participantIds);
-        return mongoOperations.findAndModify(query, update, Course.class);
+        update.addToSet("participantsIds", user.getId());
+
+        mongoOperations.updateFirst(query, update, Course.class).getModifiedCount();
+
+        return findById(courseId);
     }
 
     @Override
@@ -70,24 +64,21 @@ public class CourseMongoRepository implements CourseRepository {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(courseId));
-        Course course = mongoOperations.findOne(query, Course.class);
 
-        List<String> participantIds = new ArrayList<>();
-        if (course.getParticipantsIds() != null) {
-            participantIds = new ArrayList<>(course.getParticipantsIds());
-        }
-
-        List<String> participants = participantIds.stream().filter(pId -> !pId.equals(user.getId())).collect(Collectors.toList());
         Update update = new Update();
-        update.set("participantsIds", participants);
-        return mongoOperations.findAndModify(query, update, Course.class);
+        update.pull("participantsIds", user.getId());
+
+        mongoOperations.updateFirst(query, update, Course.class).getModifiedCount();
+
+        return findById(courseId);
     }
 
     @Override
     public List<Course> findAllByParticipantEmail(String userEmail) {
         User user = getUserByEmail(userEmail);
-        // TODO: create a proper mongo query
-        return findAll().stream().filter(course -> course.getParticipantsIds().contains(user.getId())).collect(Collectors.toList());
+        Query query = new Query();
+        query.addCriteria(Criteria.where("participantsIds").is(user.getId()));
+        return mongoOperations.find(query, Course.class);
     }
 
     @Override
