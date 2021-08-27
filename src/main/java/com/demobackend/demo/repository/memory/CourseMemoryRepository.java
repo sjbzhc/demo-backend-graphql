@@ -1,7 +1,10 @@
 package com.demobackend.demo.repository.memory;
 
+import com.demobackend.demo.exceptions.DemoException;
 import com.demobackend.demo.models.Course;
 import com.demobackend.demo.repository.CourseRepository;
+import io.vavr.control.Either;
+import io.vavr.control.Try;
 import org.springframework.context.annotation.Profile;
 
 import java.util.List;
@@ -9,37 +12,37 @@ import java.util.List;
 @Profile("it")
 public class CourseMemoryRepository implements CourseRepository {
     @Override
-    public Course save(Course course) {
+    public Either<DemoException, Course> save(Course course) {
         return null;
     }
 
     @Override
-    public List<Course> findAll() {
-        return List.of();
+    public Either<DemoException, List<Course>> findAll() {
+        return Either.right(List.of());
     }
 
     @Override
-    public Course findById(String courseId) {
-        return Course.builder().build();
+    public Either<DemoException, Course> findById(String courseId) {
+        return Either.right(Course.builder().build());
     }
 
     @Override
-    public Course addParticipant(String courseId, String participantId) {
-        return null;
+    public Either<DemoException, Course> addParticipant(String courseId, String participantId) {
+        return Either.right(Course.builder().build());
     }
 
     @Override
-    public List<Course> findAllByCreatorEmail(String email) {
-        return List.of();
+    public Either<DemoException, List<Course>> findAllByCreatorEmail(String email) {
+        return Either.right(List.of());
     }
 
     @Override
-    public Course removeParticipant(String courseId, String userEmail) {
-        return null;
+    public Either<DemoException, Course> removeParticipant(String courseId, String userEmail) {
+        return Either.right(Course.builder().build());
     }
 
     @Override
-    public List<Course> findAllByParticipantEmail(String userEmail) {
-        return List.of();
+    public Either<DemoException, List<Course>> findAllByParticipantEmail(String userEmail) {
+        return Either.right(List.of());
     }
 }

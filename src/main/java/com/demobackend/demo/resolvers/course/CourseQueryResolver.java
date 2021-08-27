@@ -1,6 +1,7 @@
 package com.demobackend.demo.resolvers.course;
 
 import com.demobackend.demo.context.CustomGraphQLContext;
+import com.demobackend.demo.exceptions.DemoException;
 import com.demobackend.demo.models.Course;
 import com.demobackend.demo.models.User;
 import com.demobackend.demo.repository.CourseRepository;
@@ -22,28 +23,25 @@ public class CourseQueryResolver implements GraphQLQueryResolver {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public List<Course> allCourses(DataFetchingEnvironment environment) {
+    public List<Course> allCourses(DataFetchingEnvironment environment) throws Throwable {
 
         CustomGraphQLContext context = environment.getContext();
-
         String userEmail = context.getUserEmail();
-
         log.info("Requested all courses by {}", userEmail);
 
-        return courseRepository.findAll();
+        return courseRepository.findAll().getOrElseThrow(error -> error);
     }
 
-    public Course course(String courseId, DataFetchingEnvironment environment) {
+    public Course course(String courseId, DataFetchingEnvironment environment) throws DemoException {
 
         CustomGraphQLContext context = environment.getContext();
-
         String userEmail = context.getUserEmail();
 
         Optional<User> user = userRepository.findByEmail(userEmail);
 
         log.info("Requested course by {}", userEmail);
 
-        Course course = courseRepository.findById(courseId);
+        Course course = courseRepository.findById(courseId).getOrElseThrow(error -> error);
 
         return Course.builder()
                 .id(course.getId())
@@ -55,7 +53,7 @@ public class CourseQueryResolver implements GraphQLQueryResolver {
                 .build();
     }
 
-    public List<Course> myOfferedCourses(DataFetchingEnvironment environment) {
+    public List<Course> myOfferedCourses(DataFetchingEnvironment environment) throws DemoException {
 
         CustomGraphQLContext context = environment.getContext();
 
@@ -63,11 +61,11 @@ public class CourseQueryResolver implements GraphQLQueryResolver {
 
         log.info("Requested all courses by {}", userEmail);
 
-        return courseRepository.findAllByCreatorEmail(userEmail);
+        return courseRepository.findAllByCreatorEmail(userEmail).getOrElseThrow(error -> error);
     }
 
     @PreAuthorize("hasAuthority('student')")
-    public List<Course> myCourses(DataFetchingEnvironment environment) {
+    public List<Course> myCourses(DataFetchingEnvironment environment) throws DemoException {
 
         CustomGraphQLContext context = environment.getContext();
 
@@ -75,6 +73,6 @@ public class CourseQueryResolver implements GraphQLQueryResolver {
 
         log.info("Requested all enrolled courses by {}", userEmail);
 
-        return courseRepository.findAllByParticipantEmail(userEmail);
+        return courseRepository.findAllByParticipantEmail(userEmail).getOrElseThrow(error -> error);
     }
 }

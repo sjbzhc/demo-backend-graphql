@@ -1,8 +1,11 @@
 package com.demobackend.demo.repository.mongo;
 
+import com.demobackend.demo.exceptions.CourseRepositoryException;
+import com.demobackend.demo.exceptions.DemoException;
 import com.demobackend.demo.models.Course;
 import com.demobackend.demo.models.User;
 import com.demobackend.demo.repository.CourseRepository;
+import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -20,20 +23,29 @@ public class CourseMongoRepository implements CourseRepository {
     MongoOperations mongoOperations;
 
     @Override
-    public List<Course> findAll() {
-        Query query = new Query();
-        return mongoOperations.find(query, Course.class);
+    public Either<DemoException, List<Course>> findAll() {
+        try {
+            Query query = new Query();
+            return Either.right(mongoOperations.find(query, Course.class));
+        } catch (Exception e) {
+            return Either.left(new CourseRepositoryException.RepositoryAccessException());
+        }
     }
 
     @Override
-    public Course findById(String courseId) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(courseId));
-        return mongoOperations.findOne(query, Course.class);
+    public Either<DemoException, Course> findById(String courseId) {
+        try {
+            Query query = new Query();
+            query.addCriteria(Criteria.where("id").is(courseId));
+            return Either.right(mongoOperations.findOne(query, Course.class));
+        } catch (Exception e) {
+            return Either.left(new CourseRepositoryException.RepositoryAccessException());
+        }
+
     }
 
     @Override
-    public Course addParticipant(String courseId, String userEmail) {
+    public Either<DemoException, Course> addParticipant(String courseId, String userEmail) {
         User user = getUserByEmail(userEmail);
 
         Query query = new Query();
@@ -48,18 +60,23 @@ public class CourseMongoRepository implements CourseRepository {
     }
 
     @Override
-    public List<Course> findAllByCreatorEmail(String email) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("email").is(email));
-        User user = mongoOperations.findOne(query, User.class);
+    public Either<DemoException, List<Course>> findAllByCreatorEmail(String email) {
+        try {
+            Query query = new Query();
+            query.addCriteria(Criteria.where("email").is(email));
+            User user = mongoOperations.findOne(query, User.class);
 
-        query = new Query();
-        query.addCriteria(Criteria.where("creatorId").is(user.getId()));
-        return mongoOperations.find(query, Course.class);
+            query = new Query();
+            query.addCriteria(Criteria.where("creatorId").is(user.getId()));
+            return Either.right(mongoOperations.find(query, Course.class));
+        } catch (Exception e) {
+            return Either.left(new CourseRepositoryException.RepositoryAccessException());
+        }
+
     }
 
     @Override
-    public Course removeParticipant(String courseId, String userEmail) {
+    public Either<DemoException, Course> removeParticipant(String courseId, String userEmail) {
         User user = getUserByEmail(userEmail);
 
         Query query = new Query();
@@ -74,16 +91,25 @@ public class CourseMongoRepository implements CourseRepository {
     }
 
     @Override
-    public List<Course> findAllByParticipantEmail(String userEmail) {
-        User user = getUserByEmail(userEmail);
-        Query query = new Query();
-        query.addCriteria(Criteria.where("participantsIds").is(user.getId()));
-        return mongoOperations.find(query, Course.class);
+    public Either<DemoException, List<Course>> findAllByParticipantEmail(String userEmail) {
+        try {
+            User user = getUserByEmail(userEmail);
+            Query query = new Query();
+            query.addCriteria(Criteria.where("participantsIds").is(user.getId()));
+            return Either.right(mongoOperations.find(query, Course.class));
+        } catch (Exception e) {
+            return Either.left(new CourseRepositoryException.RepositoryAccessException());
+        }
+
     }
 
     @Override
-    public Course save(Course course) {
-        return mongoOperations.save(course);
+    public Either<DemoException, Course> save(Course course) {
+        try {
+            return Either.right(mongoOperations.save(course));
+        } catch (Exception e) {
+            return Either.left(new CourseRepositoryException.RepositoryAccessException());
+        }
     }
 
     private User getUserByEmail(String userEmail) {

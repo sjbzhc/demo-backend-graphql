@@ -30,4 +30,10 @@ public class GraphqlExceptionHandler {
         return new ThrowableGraphQLError(e, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 
+    @ExceptionHandler(DemoException.class)
+    public ThrowableGraphQLError handle(DemoException e) {
+        return new ThrowableGraphQLError(e, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+    }
+
+
 }
