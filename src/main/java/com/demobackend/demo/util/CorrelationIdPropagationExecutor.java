@@ -6,7 +6,7 @@ import org.slf4j.MDC;
 
 import java.util.concurrent.Executor;
 
-import static com.demobackend.demo.instrumentation.RequestLogInstrumentation.CORRELATION_ID;
+import static com.demobackend.demo.infra.instrumentation.RequestLogInstrumentation.CORRELATION_ID;
 
 @RequiredArgsConstructor
 public class CorrelationIdPropagationExecutor implements Executor {

@@ -1,6 +1,6 @@
 package com.demobackend.demo.models;
 
-import com.demobackend.demo.login.model.AuthProvider;
+import com.demobackend.demo.models.login.AuthProvider;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

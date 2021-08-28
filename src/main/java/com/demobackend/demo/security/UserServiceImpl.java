@@ -1,8 +1,8 @@
 package com.demobackend.demo.security;
 
-import com.demobackend.demo.exceptions.ResourceNotFoundException;
+import com.demobackend.demo.domain.exceptions.ResourceNotFoundException;
 import com.demobackend.demo.models.User;
-import com.demobackend.demo.repository.UserRepository;
+import com.demobackend.demo.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

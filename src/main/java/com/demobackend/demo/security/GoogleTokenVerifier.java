@@ -1,6 +1,6 @@
 package com.demobackend.demo.security;
 
-import com.demobackend.demo.exceptions.InvalidTokenException;
+import com.demobackend.demo.domain.exceptions.InvalidTokenException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
