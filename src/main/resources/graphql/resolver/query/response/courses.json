@@ -1,0 +1,26 @@
+{
+  "data": {
+    "allCourses": [
+      {
+        "creator": {
+          "name": "Manuel Rojas"
+        }
+      },
+      {
+        "creator": {
+          "name": "Manuel Rojas"
+        }
+      },
+      {
+        "creator": {
+          "name": "user 4"
+        }
+      },
+      {
+        "creator": {
+          "name": "user 5"
+        }
+      }
+    ]
+  }
+}

@@ -17,6 +17,8 @@ import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
+//TODO: move auth to microservice. Otherwise, need to inject an authenticated user's credentials into the context.
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DemoApplication.class)
 class CourseQueryResolverTest {
 
