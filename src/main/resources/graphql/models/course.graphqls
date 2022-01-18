@@ -5,4 +5,5 @@ type Course {
     participants: [User]
     description: String
     isEnrolled: Boolean
+    units: [CourseUnit]
 }

@@ -1,0 +1,5 @@
+type CourseUnit {
+    name: String
+    content: String
+    videoId: String
+}

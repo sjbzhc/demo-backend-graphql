@@ -50,6 +50,7 @@ public class CourseQueryResolver implements GraphQLQueryResolver {
                 .description(course.getDescription())
                 .isEnrolled(course.getParticipantsIds().contains(user.get().getId()))
                 .participantsIds(course.getParticipantsIds())
+                .units(course.getUnits())
                 .build();
     }
 

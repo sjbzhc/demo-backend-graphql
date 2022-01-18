@@ -21,6 +21,7 @@ public class Course {
     String description;
     List<String> participantsIds;
     Boolean isEnrolled;
+    List<CourseUnit> units;
 
     public List<String> getParticipantsIds() {
         if (participantsIds != null) {
